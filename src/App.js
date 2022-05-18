@@ -1,46 +1,30 @@
 import './App.css';
-import { Form } from './components/Form/Form';
-import { Message } from './components/Message/Message';
-import {useEffect, useState} from "react";
-import { ListItem } from "@material-ui/core";
+import {Routes, Route, NavLink} from "react-router-dom";
+import Home  from './components/Pages/Home';
+import Profile from './components/Pages/Profile';
+import Chats from './components/Pages/Chats';
+import Layout from './components/Pages/Layout';
+import NotFound from './components/Pages/NotFound';
+import ChatList from './components/ChatList/ChatList';
 
 
-function App() {
-  const nameUser = 'Katya'; 
 
-  const [messages, setMessages] = useState([]);
-
-  const addMessage = (newText) => {
-    setMessages([...messages, {author: nameUser, text: newText, id:Date.now()}]);   
-  };
-
-  useEffect( () => {
-    setTimeout(()=> {
-      if (messages.length>0) {
-        alert('Message has sent')
-      }
-    }, 1000)  
-  }, [messages])
-  
+function App() {   
 
   return (
-    <div className="App" >
-      <div>
-      <ListItem>Chat #1</ListItem>      
-      <ListItem>Chat #2</ListItem>
-      </div>
-      <div>
-      {messages.map((msg) => {
-        return (
-          <div key={msg.id}>
-          <Message author={msg.author} text={msg.text}/>
-          </div>
-        )
-        
-      })}
-    </div>
-     
-    <Form onSubmit={addMessage}/>
+    <div className="App" >        
+        <Routes>
+          <Route path='/' element={<Layout />}>
+              <Route index element={<Home />}/>
+              <Route path='/chats' element={<ChatList/>}> 
+                 <Route path=':id' element={<Chats />}/> 
+              </Route>               
+              <Route path='/profile' element={<Profile />}/>
+              <Route path='*' element={<NotFound />}/>
+          </Route>
+          
+        </Routes>
+   
     </div>
   );
 }
