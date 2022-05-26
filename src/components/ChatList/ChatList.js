@@ -1,30 +1,33 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Outlet } from 'react-router-dom';
+import { addChat } from '../../store/action';
+import { Form } from '../Form/Form';
 import './ChatList.style.css';
 
-const chatsList = [
-    {
-      name: 'Chat#1',
-      id:'chat1'
-    },
-    {
-      name: 'Chat#2',
-      id:'chat2'
-    },
-    {
-      name: 'Chat#3',
-      id:'chat3'
-    },
-]
 
-const ChatList = () => {
+const ChatList = ({ chats, addChat, removeChat }) => {
+
+  const handleSubmit = (newChatName) => {
+    const newChat = {
+      name: newChatName,
+      id: Date.now()
+    }
+
+    addChat(newChat);
+  };
+
+  
     return (
         <>
         <div className='chats-list'>
-        { chatsList.map((chat) => (
-             <NavLink to={`${chat.id}`} key={chat.id}><div>{chat.name}</div></NavLink>
-         ))}
+        { chats.map((chat) => (
+          <>
+             <NavLink to={`${chat.id}`} key={chat.id}>{chat.name}</NavLink>
+             <span onClick={() => removeChat(chat.id)}>delete</span>
+         </> ))}         
         </div>
+        <Form onSubmit={handleSubmit} />
         <Outlet />
         </>
     );
