@@ -18,4 +18,4 @@ const Chats = () => {
     );
 };
 
-export default Chats; 
+export default Chats;
