@@ -24,7 +24,9 @@ const Messages = () => {
    }
 
    const deleteMessage = (id) => {
-       dispatch({ type: DELETE_MESSAGES, payload: id})
+       dispatch({ type: DELETE_MESSAGES, payload: id, meta: {
+           delay: 3000
+       }})
    }
     return (
         <div>
