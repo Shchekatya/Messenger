@@ -1,6 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import { chatsReducer } from "./reducers/chatsReducer/chatsReducer";
+import { commentsReducer } from "./reducers/commentsReducer/commentsReducer";
 import { messagesReducer } from "./reducers/messagesReducer/messagesReducer";
+import thunk from "redux-thunk";
 
 const time = store => next => action => {
     const delay = action?.meta?.delay;
@@ -28,5 +30,6 @@ const logger = store => next => action => {
 export const store = createStore(combineReducers({
     chats: chatsReducer,
     messages: messagesReducer,
-}), applyMiddleware(time, logger));
+    comments: commentsReducer
+}), applyMiddleware(thunk, time, logger));
 
