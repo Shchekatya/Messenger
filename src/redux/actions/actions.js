@@ -1,2 +1,5 @@
 export const DELETE_MESSAGES="DELETE_MESSAGES";
 export const ADD_MESSAGES="ADD_MESSAGES";
+export const GET_COMMENTS="GET_COMMENTS"
+export const LOADING="LOADING";
+export const ERROR="ERROR";
