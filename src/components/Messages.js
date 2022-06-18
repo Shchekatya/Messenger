@@ -6,7 +6,7 @@ import { messageSelector } from '../redux/reducers/messagesReducer/selectors';
 
 const Messages = () => {
     const {idParam} = useParams();
-    const [title, setTitle] = useState();
+    const [title, setTitle] = useState("");
     const dispatch = useDispatch();
    const chatsMessage = useSelector(messageSelector);
    const message = chatsMessage.filter((message) => {
@@ -24,7 +24,9 @@ const Messages = () => {
    }
 
    const deleteMessage = (id) => {
-       dispatch({ type: DELETE_MESSAGES, payload: id})
+       dispatch({ type: DELETE_MESSAGES, payload: id, meta: {
+           delay: 3000
+       }})
    }
     return (
         <div>
